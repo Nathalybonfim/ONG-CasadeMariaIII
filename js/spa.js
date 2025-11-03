@@ -12,14 +12,6 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
-  links.forEach(function(link){
-    link.addEventListener('click', function(e){
-      e.preventDefault();
-      var page = link.getAttribute('data-link');
-      location.hash = page;
-    });
-  });
-
   function renderIndex(){
     content.innerHTML = '\
       <section class="hero" aria-labelledby="heroTitle">\
@@ -229,8 +221,7 @@ document.addEventListener('DOMContentLoaded', function(){
               <button class="btn btn-primary" type="submit">Enviar mensagem</button>\
             </div>\
           </form>\
-        </div>\
-      </section>';
+        </div>';
     var cform = document.getElementById('contact-form');
     if(cform){
       var nf = cform.cloneNode(true);
@@ -244,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function(){
         if(name.length < 3) errs.push('Nome muito curto');
         if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errs.push('Email inválido');
         if(msg.length < 6) errs.push('Mensagem muito curta');
-        if(errs.length){ alert('Corrija:\\n' + errs.join('\\n')); return; }
+        if(errs.length){ alert('Corrija:\n' + errs.join('\n')); return; }
         alert('Mensagem enviada! (demo salva em localStorage)');
         var cList = JSON.parse(localStorage.getItem('contatos') || '[]');
         cList.push({name,email,msg,when:new Date().toISOString()});
@@ -267,6 +258,7 @@ document.addEventListener('DOMContentLoaded', function(){
       default: renderIndex();
     }
     content.focus();
+    window.scrollTo(0, 0);
   }
 
   var initial = location.hash ? location.hash.replace('#','') : 'index';
@@ -279,13 +271,13 @@ document.addEventListener('DOMContentLoaded', function(){
 
   document.body.addEventListener('click', function(e){
     var a = e.target.closest('[data-link]');
-    if(!a) return;
-    e.preventDefault();
-    var page = a.getAttribute('data-link');
-    location.hash = page;
-  });
-
-  document.body.addEventListener('click', function(e){
+    if(a){
+      e.preventDefault();
+      var page = a.getAttribute('data-link');
+      location.hash = page;
+      window.scrollTo(0, 0);
+      return;
+    }
     var el = e.target.closest('[data-action]');
     if(!el) return;
     var action = el.dataset.action;

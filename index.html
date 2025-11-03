@@ -1,292 +1,58 @@
-document.addEventListener('DOMContentLoaded', function(){
-  var links = document.querySelectorAll('a[data-link]');
-  var content = document.getElementById('content');
-  var navToggle = document.getElementById('navToggle');
-  var navList = document.getElementById('navList');
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ONG Casa de Maria</title>
 
-  if(navToggle){
-    navToggle.addEventListener('click', function(){
-      var expanded = navToggle.getAttribute('aria-expanded') === 'true';
-      navToggle.setAttribute('aria-expanded', String(!expanded));
-      navList.style.display = expanded ? 'none' : 'flex';
-    });
-  }
+  <!-- Fonte -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  function renderIndex(){
-    content.innerHTML = '\
-      <section class="hero" aria-labelledby="heroTitle">\
-        <div class="hero-left">\
-          <h2 id="heroTitle">Transformando vidas com amor e solidariedade</h2>\
-          <p class="lead">A Casa de Maria apoia 31 famílias por mês com cestas básicas, arrecadação de roupas e projetos sociais. Sua participação faz a diferença.</p>\
-          <div class="mt-6">\
-            <a href="#projetos" data-link="projetos" class="btn btn-primary">Conheça nossos projetos</a>\
-            <a href="#cadastro" data-link="cadastro" class="btn btn-outline">Quero ajudar</a>\
-          </div>\
-        </div>\
-        <div class="hero-right">\
-          <img src="imagens/familias.jpeg" alt="Famílias apoiadas">\
-        </div>\
-      </section>\
-      <section class="section" aria-labelledby="quemTitle">\
-        <h3 id="quemTitle">Quem somos</h3>\
-        <p class="small">Projeto inspirado em iniciativas espirituais que há 20 anos apoia famílias locais. Atuamos com doações de alimentos, roupas e participação em iniciativas como "Tampinhas que Curam".</p>\
-      </section>\
-      <section class="section" aria-labelledby="mvvTitle">\
-        <h3 id="mvvTitle">Missão, Visão e Valores</h3>\
-        <div class="mvv">\
-          <div class="mvv-item"><h4>Missão</h4><p>Ajudar quem mais precisa, com amor e solidariedade.</p></div>\
-          <div class="mvv-item"><h4>Visão</h4><p>Um mundo mais justo e acolhedor para todos.</p></div>\
-          <div class="mvv-item"><h4>Valores</h4><p>Amor, respeito, empatia e união.</p></div>\
-        </div>\
-      </section>\
-      <section class="section" aria-labelledby="destaquesTitle">\
-        <h3 id="destaquesTitle">Nossos Destaques</h3>\
-        <div id="cards-container" class="cards-grid" aria-live="polite"></div>\
-      </section>';
-    var cardsContainer = document.getElementById('cards-container');
-    cardsContainer.innerHTML = '';
-    cardsContainer.innerHTML += createCard('Projeto Esperança','Distribuição mensal de cestas básicas para famílias.','imagens/familias.jpeg');
-    cardsContainer.innerHTML += createCard('Tampinhas que Curam','Arrecadação de tampinhas para ajudar crianças com câncer.','imagens/tampinhas.png');
-    cardsContainer.innerHTML += createCard('Visitas ao Lar Vicentino','Arrecadação de roupas e visitas semanais.','imagens/lar.png');
-  }
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="imagens/logo.jpg" alt="Logo Casa de Maria" class="logo" id="topLogo">
+        <div class="brand-text">
+          <h1>Casa de Maria</h1>
+          <p class="tag">Amor, caridade e solidariedade</p>
+        </div>
+      </div>
 
-  function renderProjects(){
-    content.innerHTML = '\
-      <section class="section">\
-        <h2>Projetos</h2>\
-        <p class="small">Conheça os projetos que movem nossa comunidade.</p>\
-        <div id="projects-grid" class="cards-grid mt-6" aria-live="polite"></div>\
-      </section>';
-    var grid = document.getElementById('projects-grid');
-    grid.innerHTML = '';
-    grid.innerHTML += createCard('Projeto Esperança','Distribuição de cestas básicas para 31 famílias.','imagens/familias.jpeg');
-    grid.innerHTML += createCard('Projeto Semente','Reforço escolar para crianças e atividades educativas.','imagens/psi.png');
-    grid.innerHTML += createCard('Projeto Cuidar','Apoio psicológico e assistência familiar.','imagens/cuidar.jpg');
-    grid.innerHTML += createCard('Tampinhas que Curam','Coleta de tampinhas e reciclagem beneficiente.','imagens/tampinhas.png');
-  }
+      <nav class="main-nav" aria-label="Menu principal">
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navList">☰</button>
+        <ul class="nav-list" id="navList">
+          <li><a href="#" data-link="index">INÍCIO</a></li>
+          <li><a href="#" data-link="projetos">PROJETOS</a></li>
+          <li><a href="#" data-link="depoimentos">DEPOIMENTOS</a></li>
+          <li><a href="#" data-link="doacoes">DOAÇÕES</a></li>
+          <li><a href="#" data-link="cadastro">SEJA UM VOLUNTÁRIO</a></li>
+          <li><a href="#" data-link="galeria">GALERIA</a></li>
+          <li><a href="#" data-link="contato">CONTATO</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-  function renderTestimonials(){
-    content.innerHTML = '\
-      <section class="section">\
-        <h2>Depoimentos</h2>\
-        <p class="small">Vozes da comunidade — histórias de voluntários e beneficiados.</p>\
-        <div class="mt-6">\
-          <form id="testimonial-form" class="form-card">\
-            <div class="form-row">\
-              <div class="field">\
-                <label for="tnome">Seu nome</label>\
-                <input id="tnome" name="tnome" type="text" required>\
-              </div>\
-              <div class="field">\
-                <label for="trole">Função (ex: voluntário, mãe beneficiada)</label>\
-                <input id="trole" name="trole" type="text">\
-              </div>\
-            </div>\
-            <div style="margin-top:12px">\
-              <label for="ttexto">Depoimento</label>\
-              <textarea id="ttexto" name="ttexto" required></textarea>\
-            </div>\
-            <div style="margin-top:12px">\
-              <button class="btn btn-primary" type="submit">Enviar depoimento</button>\
-            </div>\
-          </form>\
-        </div>\
-        <div id="testimonials-grid" class="cards-grid mt-6"></div>\
-      </section>';
-    window.initTestimonialForm();
-    window.renderTestimonials = function(){
-      var grid = document.getElementById('testimonials-grid');
-      grid.innerHTML = '';
-      var list = JSON.parse(localStorage.getItem('depoimentos') || '[]');
-      if(list.length === 0){
-        grid.innerHTML = '<p class="small">Nenhum depoimento ainda — seja o primeiro a contar sua experiência.</p>';
-      } else {
-        list.forEach(function(item){ grid.innerHTML += window.createTestimonial(item.author, item.text, item.role); });
-      }
-    };
-    window.renderTestimonials();
-  }
+  <main id="content" class="container" tabindex="-1"></main>
 
-  function renderDonations(){
-    content.innerHTML = '\
-      <section class="section">\
-        <h2>Doações</h2>\
-        <p class="small">Sua doação alimenta famílias e sustenta nossos projetos — arrecadação, visitas e apoio direto.</p>\
-        <div class="form-card mt-6">\
-          <form id="donation-form">\
-            <div class="form-row">\
-              <div class="field">\
-                <label for="dnome">Seu nome</label>\
-                <input id="dnome" name="dnome" type="text" required>\
-              </div>\
-              <div class="field">\
-                <label for="dvalor">Valor (R$)</label>\
-                <input id="dvalor" name="dvalor" type="text" placeholder="Ex: 50,00" required>\
-              </div>\
-            </div>\
-            <div style="margin-top:12px">\
-              <label for="dtipo">Tipo de doação</label>\
-              <select id="dtipo" name="dtipo">\
-                <option value="alimento">Alimento</option>\
-                <option value="roupa">Roupas</option>\
-                <option value="financeira">Financeira (PIX)</option>\
-              </select>\
-            </div>\
-            <div style="margin-top:12px">\
-              <label for="dmensagem">Observações (opcional)</label>\
-              <textarea id="dmensagem" name="dmensagem"></textarea>\
-            </div>\
-            <div style="margin-top:12px">\
-              <button class="btn btn-primary" type="submit">Gerar chave PIX / Registrar doação</button>\
-            </div>\
-          </form>\
-        </div>\
-      </section>';
-    window.initDonationForm();
-  }
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Casa de Maria</strong> — &copy; Todos os direitos reservados.
+      </div>
+      <div class="footer-actions">
+        <a href="#" data-link="cadastro" class="btn btn-ghost">Quero Ajudar</a>
+        <a href="#" data-link="doacoes" class="btn btn-outline">Doar</a>
+      </div>
+    </div>
+  </footer>
 
-  function renderVolunteer(){
-    content.innerHTML = '\
-      <section class="section">\
-        <h2>Voluntarie-se</h2>\
-        <p class="small">Junte-se à nossa rede — participe de visitas, arrecadações e eventos.</p>\
-        <div class="form-card mt-6">\
-          <form id="volunteer-form" novalidate>\
-            <div class="form-row">\
-              <div class="field">\
-                <label for="nome">Nome completo</label>\
-                <input type="text" id="nome" name="nome" required>\
-              </div>\
-              <div class="field">\
-                <label for="email">Email</label>\
-                <input type="email" id="email" name="email" required>\
-              </div>\
-            </div>\
-            <div class="form-row mt-6">\
-              <div class="field">\
-                <label for="telefone">Telefone (opcional)</label>\
-                <input type="text" id="telefone" name="telefone">\
-              </div>\
-              <div class="field">\
-                <label for="interesse">Área de interesse</label>\
-                <select id="interesse" name="interesse">\
-                  <option value="visitas">Visitas ao Lar</option>\
-                  <option value="arrecadacao">Arrecadação de roupas</option>\
-                  <option value="eventos">Eventos e palestras</option>\
-                </select>\
-              </div>\
-            </div>\
-            <div style="margin-top:12px">\
-              <label for="mensagem">Por que quer participar?</label>\
-              <textarea id="mensagem" name="mensagem" placeholder="Conte-nos um pouco..." required></textarea>\
-            </div>\
-            <div style="margin-top:12px">\
-              <button class="btn btn-primary" type="submit">Enviar cadastro</button>\
-            </div>\
-          </form>\
-        </div>\
-        <div class="mt-6 small"><strong>Observação:</strong> Seus dados ficam armazenados localmente no navegador (localStorage) apenas para demonstração escolar. Em produção, envie estes dados a um servidor seguro.</div>\
-      </section>';
-    window.initVolunteerForm();
-  }
-
-  function renderGallery(){
-    content.innerHTML = '\
-      <section class="section">\
-        <h2>Galeria</h2>\
-        <p class="small">Fotos das ações e eventos.</p>\
-        <div class="gallery mt-6">\
-          <img src="imagens/familias.jpeg" alt="Famílias apoiadas">\
-          <img src="imagens/voluntarios.jpg" alt="Voluntários">\
-          <img src="imagens/tampinhas.png" alt="Tampinhas que Curam">\
-          <img src="imagens/lar.png" alt="Lar Vicentino">\
-        </div>\
-      </section>';
-  }
-
-  function renderContact(){
-    content.innerHTML = '\
-      <section class="section">\
-        <h2>Contato</h2>\
-        <p class="small">WhatsApp: <strong>(11) 97766-1218</strong> — Endereço: Vila Curuçá Velha - SP</p>\
-        <div class="mt-6 form-card">\
-          <form id="contact-form">\
-            <label for="cname">Nome</label>\
-            <input id="cname" name="cname" type="text" required>\
-            <label for="cemail" style="margin-top:8px">Email</label>\
-            <input id="cemail" name="cemail" type="email" required>\
-            <label for="cmsg" style="margin-top:8px">Mensagem</label>\
-            <textarea id="cmsg" name="cmsg" required></textarea>\
-            <div style="margin-top:10px">\
-              <button class="btn btn-primary" type="submit">Enviar mensagem</button>\
-            </div>\
-          </form>\
-        </div>';
-    var cform = document.getElementById('contact-form');
-    if(cform){
-      var nf = cform.cloneNode(true);
-      cform.parentNode.replaceChild(nf, cform);
-      nf.addEventListener('submit', function(e){
-        e.preventDefault();
-        var name = nf.cname.value.trim();
-        var email = nf.cemail.value.trim();
-        var msg = nf.cmsg.value.trim();
-        var errs = [];
-        if(name.length < 3) errs.push('Nome muito curto');
-        if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errs.push('Email inválido');
-        if(msg.length < 6) errs.push('Mensagem muito curta');
-        if(errs.length){ alert('Corrija:\n' + errs.join('\n')); return; }
-        alert('Mensagem enviada! (demo salva em localStorage)');
-        var cList = JSON.parse(localStorage.getItem('contatos') || '[]');
-        cList.push({name,email,msg,when:new Date().toISOString()});
-        localStorage.setItem('contatos', JSON.stringify(cList));
-        nf.reset();
-      });
-    }
-  }
-
-  function navigate(page){
-    document.querySelectorAll('[data-link]').forEach(function(a){ a.classList.toggle('active', a.getAttribute('data-link') === page); });
-    switch(page){
-      case 'index': renderIndex(); break;
-      case 'projetos': renderProjects(); break;
-      case 'depoimentos': renderTestimonials(); break;
-      case 'doacoes': renderDonations(); break;
-      case 'cadastro': renderVolunteer(); break;
-      case 'galeria': renderGallery(); break;
-      case 'contato': renderContact(); break;
-      default: renderIndex();
-    }
-    content.focus();
-    window.scrollTo(0, 0);
-  }
-
-  var initial = location.hash ? location.hash.replace('#','') : 'index';
-  navigate(initial);
-
-  window.addEventListener('hashchange', function(){
-    var page = location.hash.replace('#','') || 'index';
-    navigate(page);
-  });
-
-  document.body.addEventListener('click', function(e){
-    var a = e.target.closest('[data-link]');
-    if(a){
-      e.preventDefault();
-      var page = a.getAttribute('data-link');
-      location.hash = page;
-      window.scrollTo(0, 0);
-      return;
-    }
-    var el = e.target.closest('[data-action]');
-    if(!el) return;
-    var action = el.dataset.action;
-    var title = el.dataset.title || '';
-    if(action === 'donate'){
-      alert('Obrigado pelo interesse em apoiar "'+title+'". Vá até Doações para gerar a chave PIX (demo).');
-      location.hash = 'doacoes';
-    } else if(action === 'details'){
-      alert('Mais informações sobre "'+title+'" serão adicionadas em breve.');
-    }
-  });
-});
+  <script src="js/templates.js"></script>
+  <script src="js/form.js"></script>
+  <script src="js/spa.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

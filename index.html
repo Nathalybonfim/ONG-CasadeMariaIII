@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function(){
   var navToggle = document.getElementById('navToggle');
   var navList = document.getElementById('navList');
 
-  // Menu mobile
   if(navToggle){
     navToggle.addEventListener('click', function(){
       var expanded = navToggle.getAttribute('aria-expanded') === 'true';
@@ -13,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
-  // Função para renderizar cada página
   function renderIndex(){
     content.innerHTML = '\
       <section class="hero" aria-labelledby="heroTitle">\
@@ -237,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function(){
         if(name.length < 3) errs.push('Nome muito curto');
         if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errs.push('Email inválido');
         if(msg.length < 6) errs.push('Mensagem muito curta');
-        if(errs.length){ alert('Corrija:\\n' + errs.join('\\n')); return; }
+        if(errs.length){ alert('Corrija:\n' + errs.join('\n')); return; }
         alert('Mensagem enviada! (demo salva em localStorage)');
         var cList = JSON.parse(localStorage.getItem('contatos') || '[]');
         cList.push({name,email,msg,when:new Date().toISOString()});
@@ -247,7 +245,6 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }
 
-  // Função de navegação
   function navigate(page){
     document.querySelectorAll('[data-link]').forEach(function(a){ a.classList.toggle('active', a.getAttribute('data-link') === page); });
     switch(page){
@@ -261,10 +258,9 @@ document.addEventListener('DOMContentLoaded', function(){
       default: renderIndex();
     }
     content.focus();
-    window.scrollTo(0, 0); // garante topo
+    window.scrollTo(0, 0);
   }
 
-  // Carrega a página inicial 
   var initial = location.hash ? location.hash.replace('#','') : 'index';
   navigate(initial);
 
@@ -272,7 +268,6 @@ document.addEventListener('DOMContentLoaded', function(){
     var page = location.hash.replace('#','') || 'index';
     navigate(page);
   });
-
 
   document.body.addEventListener('click', function(e){
     var a = e.target.closest('[data-link]');
@@ -283,7 +278,6 @@ document.addEventListener('DOMContentLoaded', function(){
       window.scrollTo(0, 0);
       return;
     }
-
     var el = e.target.closest('[data-action]');
     if(!el) return;
     var action = el.dataset.action;
@@ -295,5 +289,4 @@ document.addEventListener('DOMContentLoaded', function(){
       alert('Mais informações sobre "'+title+'" serão adicionadas em breve.');
     }
   });
-
 });

@@ -264,17 +264,16 @@ document.addEventListener('DOMContentLoaded', function(){
     window.scrollTo(0, 0); // garante topo
   }
 
-  // Carrega a página inicial ou hash existente
+  // Carrega a página inicial 
   var initial = location.hash ? location.hash.replace('#','') : 'index';
   navigate(initial);
 
-  // Sempre que mudar hash
   window.addEventListener('hashchange', function(){
     var page = location.hash.replace('#','') || 'index';
     navigate(page);
   });
 
-  // Clique nos links
+
   document.body.addEventListener('click', function(e){
     var a = e.target.closest('[data-link]');
     if(a){
@@ -284,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function(){
       window.scrollTo(0, 0);
       return;
     }
-    // Ações especiais
+
     var el = e.target.closest('[data-action]');
     if(!el) return;
     var action = el.dataset.action;
